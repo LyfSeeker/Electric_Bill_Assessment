@@ -42,12 +42,14 @@ ac_units = st.number_input(
 
 
 if st.button("Predict Electric Bill", type="primary"):
+    if ac_units == 0:
+        prediction = 0
+    else:
+        new_data = pd.DataFrame({
+            "AC_Units": [ac_units]
+        })
 
-    new_data = pd.DataFrame({
-        "AC_Units": [ac_units]
-    })
-
-    prediction = model.predict(new_data)[0]
+        prediction = model.predict(new_data)[0]
 
     st.success(
         f"Predicted Electric Bill: ₹{prediction:,.2f}"
